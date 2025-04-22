@@ -169,18 +169,14 @@
 	--bs-border-radius-xxl: 2em;
 	--bs-border-radius-2xl: var(--bs-border-radius-xxl);
 	--bs-border-radius-pill: 100vmax;
-	--bs-box-shadow: unset; /* 0 0.5em 1em rgb(from var(--bs-black) r g b / 0.15); */
-	--bs-box-shadow-sm: unset; /* 0 0.125em 0.25em rgb(from var(--bs-black) r g b / 0.75); */
-	--bs-box-shadow-lg: unset; /* 0 1em 3em rgb(from var(--bs-black) r g b / 0.175); */
-	--bs-box-shadow-inset: unset /* inset 0 1px 2px rgb(from var(--bs-black) r g b / 0.075); */
-	--bs-focus-ring-width: 0 /* 0.125em; */
-	--bs-focus-ring-opacity: 0 /* 0.25; */
-	--bs-focus-ring-color: rgb(from var(--bs-primary) r g b / 0.25);
-	--bs-form-valid-color: var(--bs-green);
-	--bs-form-valid-border-color: var(--bs-green);
-	--bs-form-invalid-color: var(--bs-red);
-	--bs-form-invalid-border-color: var(--bs-red);
-	--bs-outline-width: 0px;
+	--bs-box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+	--bs-box-shadow-sm: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+	--bs-box-shadow-lg: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+	--bs-box-shadow-inset: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+	--bs-form-valid-color: var(--bs-success);
+	--bs-form-valid-border-color: var(--bs-success);
+	--bs-form-invalid-color: var(--bs-danger);
+	--bs-form-invalid-border-color: var(--bs-danger);
 }
 
 [data-bs-theme="dark"] {
@@ -298,6 +294,12 @@
 	);
 }
 
+@media(max-width: 767px) {
+	:root {
+		--bs-body-font-size: 1rem;
+	}
+}
+
 ::selection {
 	background: var(--bs-primary);
 	color: var(--bs-white);
@@ -308,6 +310,7 @@
 ::before {
 	box-sizing: border-box;
 	font-size: inherit;
+	outline-color: var(--bs-primary);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -2590,8 +2593,6 @@ progress {
 	color: var(--bs-body-color);
 	background-color: var(--bs-body-bg);
 	border-color: var(--bs-primary-border-subtle);
-	outline: (--bs-outline-width);
-	/* box-shadow: 0 0 0 0.25em rgb(from var(--bs-primary) r g b / 0.25); */
 }
 
 .form-control::-webkit-date-and-time-value {
@@ -2805,8 +2806,6 @@ textarea.form-control-lg {
 
 .form-select:focus {
 	border-color: var(--bs-primary-border-subtle);
-	outline: (--bs-outline-width);
-	/* box-shadow: 0 0 0 0.25em rgb(from var(--bs-primary) r g b / 0.25); */
 }
 
 .form-select[multiple],
@@ -2903,8 +2902,6 @@ textarea.form-control-lg {
 
 .form-check-input:focus {
 	border-color: var(--bs-primary-border-subtle);
-	outline: (--bs-outline-width);
-	/* box-shadow: 0 0 0 0.25em rgb(from var(--bs-primary) r g b / 0.25); */
 }
 
 .form-check-input:checked {
@@ -3218,6 +3215,7 @@ textarea.form-control-lg {
 	flex-wrap: wrap;
 	align-items: stretch;
 	width: 100%;
+	transition: box-shadow 200ms ease;
 }
 
 .input-group > .form-control,
@@ -3242,6 +3240,16 @@ textarea.form-control-lg {
 
 .input-group .btn:focus {
 	z-index: 5;
+}
+
+.input-group:has(input:focus-visible) {
+	box-shadow: 0 0 0 2px var(--bs-primary);
+	border-radius: var(--bs-border-radius);
+
+	input {
+		outline: unset;
+		border: unset;
+	}
 }
 
 .input-group-text {
@@ -3557,9 +3565,8 @@ textarea.form-control.is-invalid {
 	--bs-btn-border-color: transparent;
 	--bs-btn-border-radius: var(--bs-border-radius);
 	--bs-btn-hover-border-color: transparent;
-	--bs-btn-box-shadow: unset; /* inset 0 1px 0 rgb(from var(--bs-white) r g b / 0.15), 0 1px 1px rgb(from var(--bs-black) r g b / 0.075);*/
+	--bs-btn-box-shadow: unset;
 	--bs-btn-disabled-opacity: 0.65;
-	/* --bs-btn-focus-box-shadow: 0 0 0 0.25em rgb(from var(--bs-btn-focus-shadow) r g b / 0.5); */
 	display: inline-block;
 	padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
 	font-family: var(--bs-btn-font-family);
@@ -3567,7 +3574,7 @@ textarea.form-control.is-invalid {
 	font-weight: var(--bs-btn-font-weight);
 	line-height: var(--bs-btn-line-height);
 	color: var(--bs-btn-color);
-	text-align: center;
+	text-align: start;
 	text-decoration: none;
 	vertical-align: middle;
 	cursor: pointer;
@@ -3603,14 +3610,10 @@ textarea.form-control.is-invalid {
 	color: var(--bs-btn-hover-color);
 	background-color: var(--bs-btn-hover-bg);
 	border-color: var(--bs-btn-hover-border-color);
-	outline: (--bs-outline-width);
-	/* box-shadow: var(--bs-btn-focus-box-shadow); */
 }
 
 .btn-check:focus-visible + .btn {
 	border-color: var(--bs-btn-hover-border-color);
-	outline: (--bs-outline-width);
-	/* box-shadow: var(--bs-btn-focus-box-shadow); */
 }
 
 .btn-check:checked + .btn,
@@ -3930,15 +3933,18 @@ fieldset:disabled .btn {
 	--bs-btn-disabled-border-color: transparent;
 	--bs-btn-box-shadow: 0 0 0 var(--bs-black);
 	--bs-btn-focus-shadow: rgb(from var(--bs-primary-border-subtle) r g b);
-	text-decoration: underline;
+	box-shadow: unset;
+	cursor: pointer;
 }
 
 .btn-link:focus-visible {
 	color: var(--bs-btn-color);
+	background: var(--bs-gray-200);
 }
 
 .btn-link:hover {
 	color: var(--bs-btn-hover-color);
+	background: var(--bs-gray-200);
 }
 
 .btn-group-lg > .btn,
@@ -4516,8 +4522,7 @@ fieldset:disabled .btn {
 }
 
 .nav-link:focus-visible {
-	outline: (--bs-outline-width);
-	/* box-shadow: 0 0 0 0.25em rgb(from var(--bs-primary) r g b / 0.25); */
+	box-shadow: var(--bs-box-shadow);
 }
 
 .nav-link.disabled,
@@ -4757,8 +4762,7 @@ fieldset:disabled .btn {
 
 .navbar-toggler:focus {
 	text-decoration: none;
-	outline: (--bs-outline-width);
-	/* box-shadow: 0 0 0 var(--bs-navbar-toggler-focus-width); */
+	box-shadow: var(--bs-box-shadow);
 }
 
 .navbar-toggler-icon {
@@ -5424,8 +5428,7 @@ fieldset:disabled .btn {
 
 .accordion-button:focus {
 	z-index: 3;
-	/* outline: (--bs-outline-width); */
-	/* box-shadow: var(--bs-accordion-btn-focus-box-shadow); */
+	box-shadow: var(--bs-box-shadow);
 }
 
 .accordion-header {
@@ -5590,8 +5593,7 @@ fieldset:disabled .btn {
 	z-index: 3;
 	color: var(--bs-pagination-focus-color);
 	background-color: var(--bs-pagination-focus-bg);
-	outline: (--bs-outline-width);
-	/* box-shadow: var(--bs-pagination-focus-box-shadow); */
+	box-shadow: var(--bs-box-shadow);
 }
 
 .active > .page-link,
@@ -6257,7 +6259,6 @@ fieldset:disabled .btn {
 }
 
 .btn-close:focus {
-	outline: (--bs-outline-width);
 	box-shadow: var(--bs-btn-close-focus-shadow);
 	opacity: var(--bs-btn-close-focus-opacity);
 }
@@ -7138,7 +7139,7 @@ fieldset:disabled .btn {
 .carousel-control-prev:hover {
 	color: var(--bs-white);
 	text-decoration: none;
-	outline: (--bs-outline-width);
+	box-shadow: var(--bs-box-shadow);
 	opacity: 0.9;
 }
 
@@ -7340,7 +7341,7 @@ fieldset:disabled .btn {
 		visibility: hidden;
 		background-color: var(--bs-offcanvas-bg);
 		background-clip: padding-box;
-		outline: (--bs-outline-width);
+		box-shadow: var(--bs-box-shadow);
 		transition: var(--bs-offcanvas-transition);
 	}
 }
@@ -7435,7 +7436,7 @@ fieldset:disabled .btn {
 		visibility: hidden;
 		background-color: var(--bs-offcanvas-bg);
 		background-clip: padding-box;
-		outline: (--bs-outline-width);
+		box-shadow: var(--bs-box-shadow);
 		transition: var(--bs-offcanvas-transition);
 	}
 }
@@ -7530,7 +7531,7 @@ fieldset:disabled .btn {
 		visibility: hidden;
 		background-color: var(--bs-offcanvas-bg);
 		background-clip: padding-box;
-		outline: (--bs-outline-width);
+		box-shadow: var(--bs-box-shadow);
 		transition: var(--bs-offcanvas-transition);
 	}
 }
@@ -7625,7 +7626,7 @@ fieldset:disabled .btn {
 		visibility: hidden;
 		background-color: var(--bs-offcanvas-bg);
 		background-clip: padding-box;
-		outline: (--bs-outline-width);
+		box-shadow: var(--bs-box-shadow);
 		transition: var(--bs-offcanvas-transition);
 	}
 }
@@ -7720,7 +7721,7 @@ fieldset:disabled .btn {
 		visibility: hidden;
 		background-color: var(--bs-offcanvas-bg);
 		background-clip: padding-box;
-		outline: (--bs-outline-width);
+		box-shadow: var(--bs-box-shadow);
 		transition: var(--bs-offcanvas-transition);
 	}
 }
@@ -7814,7 +7815,7 @@ fieldset:disabled .btn {
 	visibility: hidden;
 	background-color: var(--bs-offcanvas-bg);
 	background-clip: padding-box;
-	outline: (--bs-outline-width);
+	box-shadow: var(--bs-box-shadow);
 	transition: var(--bs-offcanvas-transition);
 }
 
@@ -8250,11 +8251,12 @@ fieldset:disabled .btn {
 	) !important;
 }
 
+.focus-ring {
+	transition: box-shadow 200ms ease;
+}
+
 .focus-ring:focus {
-	outline: (--bs-outline-width);
-	/* box-shadow: var(--bs-focus-ring-x, 0) var(--bs-focus-ring-y, 0)
-		var(--bs-focus-ring-blur, 0) var(--bs-focus-ring-width)
-		var(--bs-focus-ring-color); */
+	box-shadow: var(--bs-box-shadow);
 }
 
 .icon-link {
@@ -8679,54 +8681,6 @@ fieldset:disabled .btn {
 
 .shadow-none {
 	box-shadow: none !important;
-}
-
-.focus-ring-primary {
-	--bs-focus-ring-color: rgb(
-		from var(--bs-primary) r g b / var(--bs-focus-ring-opacity)
-	);
-}
-
-.focus-ring-secondary {
-	--bs-focus-ring-color: rgb(
-		from var(--bs-secondary) r g b / var(--bs-focus-ring-opacity)
-	);
-}
-
-.focus-ring-success {
-	--bs-focus-ring-color: rgb(
-		from var(--bs-success) r g b / var(--bs-focus-ring-opacity)
-	);
-}
-
-.focus-ring-info {
-	--bs-focus-ring-color: rgb(
-		from var(--bs-info) r g b / var(--bs-focus-ring-opacity)
-	);
-}
-
-.focus-ring-warning {
-	--bs-focus-ring-color: rgb(
-		from var(--bs-warning) r g b / var(--bs-focus-ring-opacity)
-	);
-}
-
-.focus-ring-danger {
-	--bs-focus-ring-color: rgb(
-		from var(--bs-danger) r g b / var(--bs-focus-ring-opacity)
-	);
-}
-
-.focus-ring-light {
-	--bs-focus-ring-color: rgb(
-		from var(--bs-light) r g b / var(--bs-focus-ring-opacity)
-	);
-}
-
-.focus-ring-dark {
-	--bs-focus-ring-color: rgb(
-		from var(--bs-dark) r g b / var(--bs-focus-ring-opacity)
-	);
 }
 
 .position-static {

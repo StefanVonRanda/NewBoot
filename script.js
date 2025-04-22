@@ -70,6 +70,10 @@
 
   setActiveItem()
   window.addEventListener('hashchange', setActiveItem)
+
+  document.querySelector('#mobileMenu').onclick = () => {
+    document.querySelector('.sidebar').classList.toggle('active');
+  }
 })()
 
 function toggleTheme() {
@@ -80,21 +84,3 @@ function toggleTheme() {
 		document.documentElement.setAttribute("data-bs-theme", "dark");
 	}
 }
-// Optional: Set initial theme based on user preference
-
-if (
-	window.matchMedia &&
-	window.matchMedia("(prefers-color-scheme: dark)").matches
-) {
-	document.documentElement.setAttribute("data-bs-theme", "dark");
-}
-window
-	.matchMedia("(prefers-color-scheme: dark)")
-	.addEventListener("change", (event) => {
-		const newColorScheme = event.matches ? "dark" : "light";
-		if (newColorScheme === "dark") {
-			document.documentElement.setAttribute("data-bs-theme", "dark");
-		} else {
-			document.documentElement.removeAttribute("data-bs-theme");
-		}
-	});
